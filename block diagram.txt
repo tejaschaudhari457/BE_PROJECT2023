@@ -1,0 +1,57 @@
+   +---------------------+
+   |     TPMS Sensor     |
+   +---------------------+
+            |
+            v
+   +---------------------+           +-------------------+
+   |   Arduino Mega 2560  | <-------> | MCP2515 CAN Bus   |
+   |   (Microcontroller)   |           |      Module       |
+   +---------------------+           +-------------------+
+            |                               |
++-----------+-----------+           +-------+--------+  
+|                       |           |                |
+v                       v           v                v
++------------------+  +------------------+  +---------------------+
+|  Smoke Detector  |  | Temperature Sensor|  |   SOC Monitoring    |
++------------------+  +------------------+  +---------------------+
+            |
+            v
+   +----------------------+
+   |    Car Dashboard     |
+   +----------------------+
+
+
+-------------------------------------------------------------------------------------------------
+
+[TPMS] ----> [Arduino Mega 2560] <----> [MCP2515 CAN Bus Module] <----> [Car Dashboard]
+                     |
+               [Smoke Detector]
+                     |
+               [Temperature Sensor]
+                     |
+                [SOC Monitoring]
+
+
+
+
+TPMS Sensor:
+
+Monitors the tire pressure of the vehicle. The data is sent to the Arduino Mega 2560 to be processed and transmitted.
+Smoke Detector:
+
+Detects smoke levels within the vehicle. The Arduino Mega 2560 receives this data for further processing.
+Temperature Sensor:
+
+Monitors the internal/external temperature of the vehicle. The Arduino reads this data to provide temperature status to the car dashboard.
+SOC (State of Charge) Monitoring:
+
+Monitors the battery charge level. Data from the SOC sensor is sent to the Arduino Mega 2560.
+Arduino Mega 2560 (Microcontroller):
+
+Collects and processes sensor data from the TPMS, Smoke Detector, Temperature Sensor, and SOC Monitoring. It acts as the central controller to handle the sensor data and pass it to the CAN Bus module for communication.
+MCP2515 CAN Bus Module:
+
+Responsible for transmitting processed data from the Arduino Mega 2560 to the car's CAN bus network. It ensures proper communication with the car dashboard.
+Car Dashboard:
+
+Displays real-time data from the sensors (TPMS, Smoke Detector, Temperature Sensor, and SOC), providing the driver with crucial information regarding vehicle status and safety.

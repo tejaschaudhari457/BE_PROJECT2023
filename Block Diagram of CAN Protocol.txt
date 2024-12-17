@@ -1,0 +1,101 @@
+          +--------------------+     +--------------------+
+          |   TPMS Sensor Node  |     |   Temperature Node |
+          | (Microcontroller +   |     | (Microcontroller +  |
+          |   MCP2515 CAN Bus   |     |   MCP2515 CAN Bus   |
+          |       Module)       |     |       Module)       |
+          +--------------------+     +--------------------+
+                    |                          |
+                    |                          |
+              +---------------------+   +---------------------+
+              |   Smoke Detector    |   |  SOC Monitoring Node|
+              | (Microcontroller +   |   | (Microcontroller +   |
+              |   MCP2515 CAN Bus   |   |   MCP2515 CAN Bus   |
+              |       Module)       |   |       Module)       |
+              +---------------------+   +---------------------+
+                     |                           |
+                     |                           |
+                +---------------------+     +--------------------+
+                |       Car Dashboard  | <--> |  CAN Bus Network   |
+                |    (Display/Monitor) |     |  (CAN_H, CAN_L)    |
+                +---------------------+     +--------------------+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+Explanation of the Block Diagram:
+
+TPMS Sensor Node:
+This node collects data from the Tire Pressure Monitoring System (TPMS) and sends it to the CAN bus via the MCP2515 CAN Bus Module. It monitors tire pressure and transmits data to the car dashboard and other nodes.
+
+Temperature Sensor Node:
+This node collects data from the Temperature Sensor (could be internal or external vehicle temperature) and transmits this information to the CAN bus. Other nodes can access it, such as the dashboard or other monitoring systems.
+
+Smoke Detector Node:
+The smoke detector node detects smoke or hazardous gases inside the car and sends a warning message to the CAN bus if a threshold is exceeded.
+
+SOC Monitoring Node:
+Monitors the battery State of Charge (SOC) and transmits information about the battery's health and charge level to the CAN bus.
+
+Car Dashboard:
+The car dashboard is connected to the CAN bus and displays data received from different nodes. It can display information like tire pressure, temperature, smoke detection alerts, and battery charge.
+
+CAN Bus Network:
+The CAN_H and CAN_L lines are shared by all nodes for data transmission. Each node can communicate via the bus, sending and receiving messages based on its address.
+
+
+
+CAN Protocol Implementation Overview
+
+The CAN (Controller Area Network) protocol allows multiple microcontrollers (nodes) to communicate with each other over a shared bus. The MCP2515 CAN controller module (typically connected via SPI) helps the microcontroller communicate on the CAN bus, enabling data exchange between multiple devices.
+
+
+
+Steps to Implement CAN Protocol:
+
+1. Hardware Requirements:
+Microcontrollers: Choose microcontrollers that support SPI communication (e.g., Arduino Mega 2560, STM32, ESP32).
+MCP2515 CAN Bus Module: Used for CAN protocol communication, interfacing the microcontroller with the CAN bus.
+CAN Transceiver (e.g., TJA1050): Converts signals from the microcontroller to the CAN bus and vice versa.
+Termination Resistors: 120Ω resistors are used at both ends of the CAN bus to prevent signal reflections.
+Wiring: CAN_H (high) and CAN_L (low) are the two wires for CAN communication.
+
+2. Connecting Microcontrollers (Nodes):
+CAN Bus Wiring: All nodes are connected to the same CAN_H and CAN_L lines. You can have multiple microcontroller nodes connected to the CAN bus in parallel.
+SPI Communication: Each microcontroller uses an MCP2515 CAN controller module connected via SPI pins (MISO, MOSI, SCK, CS).
+
+3. CAN Bus Topology:
+Multi-Node Communication: You can connect up to 110 nodes on the same CAN bus network, but the practical limit will depend on the baud rate, cable length, and other factors.
+
+Nodes: 
+Each microcontroller will act as a node. Each node can send messages, listen for messages, and filter messages based on IDs.
+Bus Termination: Ensure termination resistors (120Ω) are placed at both ends of the CAN bus to maintain signal integrity.
+
+How the Nodes Work Together:
+
+Message Arbitration:
+If two nodes attempt to send a message simultaneously, the node with the lowest CAN ID wins the arbitration and sends its message. Other nodes back off and wait for the bus to be free.
+
+Message Transmission and Reception:
+Each node can send data to the CAN bus (e.g., tire pressure, smoke detection, temperature, SOC data) and receive data from other nodes (e.g., warning signals, sensor data).
+The message consists of a CAN ID, data length, and payload (actual data). Nodes can filter messages based on the CAN ID.
+Data can be sent as periodic messages or in response to specific events (e.g., sensor readings exceeding a threshold).
+
+Message Filtering:
+Each node can filter out messages that are not relevant to it (based on the CAN ID). For instance, the node responsible for tire pressure monitoring will only process messages with the relevant CAN ID for tire pressure data.
+
+System Alerts:
+Based on the data received, nodes can take actions. For example, if the smoke detector node receives a smoke detection message, it can trigger an alert on the car dashboard.
+
+How CAN Bus Nodes Communicate:
+
+Node Initialization:
+Each node initializes its CAN bus communication using the MCP2515 CAN Bus Module.
+The microcontroller sends configuration settings such as baud rate (typically 500 kbps) and CAN ID.
+
+Sending Data:
+Nodes send periodic messages with sensor data (e.g., TPMS data, temperature, SOC) to the CAN bus.
+Each message has a CAN ID, a data length, and a data payload (sensor data). The message is broadcast to all nodes connected to the bus.
+
+Receiving Data:
+Each node listens to the CAN bus and processes only the relevant messages based on the CAN ID.
+For example, the temperature node will only process messages that have a CAN ID related to temperature, and the dashboard node will process all messages to update the display.
+Error Handling:
+
+The CAN protocol has built-in error detection and handling mechanisms such as checksums, CRCs, and acknowledgment bits to ensure data integrity.

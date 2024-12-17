@@ -1,0 +1,123 @@
+                        +--------------------+
+                        |   TPMS Sensor Node |
+                        | (Microcontroller +  |
+                        |   MCP2515 CAN Bus  |
+                        |       Module)      |
+                        +--------------------+
+                                  |
+                                  |
+                            +------------------+
+                            |   CAN Bus        |
+                            |  (CAN_H, CAN_L)  |
+                            +------------------+
+                                  |
+          +---------------------+---------------------+
+          |                                         |
++---------------------+                    +---------------------+
+|  Smoke Detection     |                    |  Temperature Sensor  |
+| (Microcontroller +   |                    | (Microcontroller +   |
+|  MCP2515 CAN Bus     |                    |  MCP2515 CAN Bus     |
+|      Module)         |                    |      Module)         |
++---------------------+                    +---------------------+
+          |                                         |
+          +---------------------+-------------------+
+                                  |
+                        +---------------------+
+                        |    SOC Monitoring   |
+                        |   (Microcontroller  |
+                        |   + MCP2515 CAN Bus |
+                        |         Module)     |
+                        +---------------------+
+                                  |
+                        +---------------------+
+                        |    Car Dashboard    |
+                        |  (Display/Monitor)  |
+                        |   (CAN Bus Module)  |
+                        +---------------------+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Working Summary:
+
+Sensors (TPMS, smoke detector, temperature, SOC) continuously monitor their respective parameters.
+
+Microcontrollers with MCP2515 CAN Bus Modules send the sensor data to the CAN bus.
+
+The Car Dashboard listens to the CAN bus and updates the display or triggers alerts based on the incoming data.
+Data is displayed as real-time readings, and warnings/alerts are activated when thresholds are breached (e.g., low tire pressure, smoke detection, high temperature, or low battery charge).
+
+
+Overview of the Project: "Design and Implementation of Safety Features for Automotive" using CAN Protocol
+
+This project involves using the CAN (Controller Area Network) protocol to integrate various safety features (such as TPMS, smoke detectors, temperature sensors, and battery State of Charge (SOC) monitoring) into an automotive system. The Arduino Mega 2560 (or any compatible microcontroller) will interface with MCP2515 CAN Bus Modules to communicate over a shared CAN bus, enabling the exchange of sensor data and alerts between different system components, including the Car Dashboard.
+
+Project Input and Output Overview
+
+Inputs:
+
+TPMS (Tire Pressure Monitoring System):
+Input: Data collected from TPMS sensors about the tire pressure of the vehicle.
+Sensor: Wireless or wired pressure sensors on each tire.
+Data Sent: Pressure values for each tire (typically in PSI or kPa).
+CAN Message: TPMS data is transmitted as a CAN message with a specific CAN ID.
+
+Smoke Detection:
+Input: Data from a smoke detector or a hazardous gas sensor placed inside the vehicle.
+Sensor: Smoke or gas sensors, which detect dangerous levels of smoke or gases like CO.
+Data Sent: Detection status (whether smoke or gas is detected) and the intensity level of smoke.
+CAN Message: A warning message sent if smoke or gas exceeds threshold levels.
+
+Temperature Sensor:
+Input: Temperature data from the vehicle's interior or critical components (e.g., engine or cabin temperature).
+Sensor: Temperature sensors such as DHT11, LM35, or thermocouples.
+Data Sent: Temperature value, typically in Celsius or Fahrenheit.
+CAN Message: Transmit temperature data to the CAN bus.
+
+SOC (State of Charge) Monitoring:
+Input: Battery charge data from the vehicle's power system.
+Sensor: Battery charge monitoring system.
+Data Sent: Battery charge percentage and voltage levels.
+CAN Message: State of Charge data sent to the CAN bus.
+
+
+Outputs:
+
+Car Dashboard:
+Output: Display real-time sensor data (TPMS, temperature, smoke detection, SOC) and status on a display or screen.
+Display Type: LCD, OLED, or custom display on the dashboard.
+Data Processed: The Car Dashboard Node listens to CAN messages from different nodes (TPMS, smoke detector, temperature sensor, and SOC) and processes them for display.
+TPMS status: Show tire pressure readings or warnings if pressure is too low.
+Smoke detection: Trigger a warning if smoke or hazardous gas is detected.
+Temperature: Display engine or cabin temperature and any abnormal values.
+SOC: Show battery charge percentage and alerts for low charge.
+
+Vehicle Safety Alerts:
+Output: Alert notifications to the driver for issues such as low tire pressure, smoke detection, high temperature, or low battery charge.
+Alert Type: Visual (e.g., flashing icons on the dashboard), audio (e.g., warning sounds), or haptic (vibration or buzzing).
+Control Signals (Optional):
+Output: In advanced implementations, specific control signals could be sent to other vehicle systems (e.g., activate cooling fans if the temperature exceeds a threshold or activate an air purifier if smoke is detected).
+Control Action: These outputs depend on the design of the system and can be configured to automate certain responses.
+
+
+How the System Works:
+
+Data Collection:
+The sensors (TPMS, smoke detector, temperature sensor, SOC monitor) continuously collect data from their respective systems (tires, air quality, temperature, and battery).
+
+Data Transmission via CAN:
+The microcontrollers connected to the sensors use the MCP2515 CAN Bus Modules to transmit the sensor data to the CAN bus. Each microcontroller sends its data periodically or when an event (such as smoke detection or low tire pressure) occurs.
+The messages are transmitted over the CAN bus, which is shared by all nodes in the system. Each message contains a CAN ID that allows the receiving nodes to distinguish between different types of data (TPMS, smoke, temperature, SOC).
+
+Data Reception:
+The Car Dashboard node and any other relevant nodes (e.g., control systems, alert systems) listen to the CAN bus for incoming messages.
+The dashboard processes the messages and updates the display accordingly, showing real-time data or alerts.
+
+Decision Making:
+Based on the received data, the Car Dashboard decides which information to display and whether an alert needs to be triggered.
+
+For instance:
+If TPMS data indicates low tire pressure, a warning icon appears on the dashboard.
+If smoke is detected, an alarm goes off, and the dashboard displays a warning.
+If the SOC data shows low battery, an alert appears for the driver.
+
+Output Action:
+The system can take actions like triggering visual or audible alarms, displaying sensor data on the dashboard, or even activating certain vehicle systems based on thresholds.

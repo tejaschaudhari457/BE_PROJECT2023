@@ -1,0 +1,72 @@
+1. Microcontrollers:
+Arduino Mega 2560 (3 units):
+
+₹800 - ₹1,500 each
+Total Cost: ₹2,400 - ₹4,500
+ESP8266/ESP32 (1 unit):
+
+₹300 - ₹800 each
+Total Cost: ₹300 - ₹800
+Arduino Uno (1 unit):
+
+₹400 - ₹800 each
+Total Cost: ₹400 - ₹800
+Total for Microcontrollers:
+Low-end: ₹3,100
+High-end: ₹6,100
+2. CAN Bus Modules:
+MCP2515 CAN Bus Module with TJA1050 Transceiver (3 units):
+₹300 - ₹600 each
+Total Cost: ₹900 - ₹1,800
+Total for CAN Bus Modules:
+Low-end: ₹900
+High-end: ₹1,800
+3. Sensors:
+Wireless TPMS Sensors (1 set for 4 tires):
+
+₹1,500 - ₹2,500 per set
+Total Cost: ₹1,500 - ₹2,500
+Smoke Sensor (MQ-2 or MQ-7):
+
+₹200 - ₹400 each
+Total Cost: ₹200 - ₹400
+Temperature Sensor (LM35 or DHT11/DHT22):
+
+₹100 - ₹300 each
+Total Cost: ₹100 - ₹300
+State of Charge (SOC) Battery Monitoring Sensor:
+
+₹200 - ₹500 each
+Total Cost: ₹200 - ₹500
+Total for Sensors:
+Low-end: ₹2,000
+High-end: ₹3,600
+4. Display and Interface:
+LCD/OLED Display (1 unit):
+₹300 - ₹600
+Total Cost: ₹300 - ₹600
+Total for Display:
+Low-end: ₹300
+High-end: ₹600
+5. Additional Components (Wires, Connectors, Power Supply, etc.):
+Miscellaneous components:
+₹500 - ₹1,000
+6. Overall Project Cost Estimation:
+Low-end Estimate (cheaper components):
+
+Microcontrollers: ₹3,100
+CAN Bus Modules: ₹900
+Sensors: ₹2,000
+Display: ₹300
+Miscellaneous: ₹500
+Total: ₹6,800
+
+High-end Estimate (premium components):
+
+Microcontrollers: ₹6,100
+CAN Bus Modules: ₹1,800
+Sensors: ₹3,600
+Display: ₹600
+Miscellaneous: ₹1,000
+Total: ₹13,100
+
